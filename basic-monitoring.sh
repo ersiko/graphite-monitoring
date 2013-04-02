@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Carbon server where data should be stored for graphite to show - El servidor carbon on s'han de guardar les dades que mostra el graphite
-carbon-server=graphite.domain.tld
+carbon_server=graphite.domain.tld
 
 # Tree structure where we want information to be stored - L'estructura de l'arbre on volem que es guardin les dades a graphite. 
 tree="servers" #In this case, info will be shown in graphite as "servers.servername.loadavg_1min". We could use "pro" and "pre" to separate environments: "servers.pro.servername.loadavg_1min" - En el nostre cas es veuran a "servers.servername.loadavg_1min". Podriem posar "prod" i "pre" per separar entorns: "servers.pro.servername.loadavg_1min"
@@ -25,5 +25,5 @@ data="$data `sar -b 3|awk -v host=$host -v now=$now 'END {printf("servers.%s.dis
 #Show data for debugging purpose - Mostrem les dades per depurar errors
 echo $data
 #Send data to graphite - Enviem dades a graphite
-echo -e $data |nc -w 5 $carbon-server 2003 2>&2
+echo -e $data |nc -w 5 $carbon_server 2003 2>&2
 exit $?
