@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# WARNING - ATENCIO
+# This script requires mx4j to be installed on cassandra monitored nodes. For more instructions visit:
+# Aquest script necessita que el mx4j estigui instal·lat als nodes monitoritzats. Per mes instruccions visita: 
+# http://wiki.apache.org/cassandra/Operations#Monitoring_with_MX4J
+
 #Carbon server where data should be stored for graphite to show - El servidor carbon on s'han de guardar les dades que mostra el graphite
 carbon_server=graphite.domain.tld
 # Tree structure where we want information to be stored - L'estructura de l'arbre on volem que es guardin les dades a graphite. 
