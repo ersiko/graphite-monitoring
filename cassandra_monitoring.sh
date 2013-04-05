@@ -39,7 +39,7 @@ data="$data `curl http://$host:8081/mbean?objectname=org.apache.cassandra.db%3At
 #Heap and non-heap memory - Us de Memoria Heap i NoHeap
 data="$data `curl http://$host:8081/mbean?objectname=java.lang%3Atype%3DMemory -s|grep HeapMemoryUsage|awk -F"max=" '{print $2}'|cut -d"}" -f1|sed -e 's/, used=/\n/g'|awk -v now=$now -v host=$host '(NR == 1) {printf("$tree.%s.cassandra.internals.MaxJavaHeap %s %s\\\n",host, $0, now)} (NR == 2) {printf("$tree.%s.cassandra.internals.JavaHeapUsed %s %s\\\n",host, $0, now)} (NR ==3) {printf("$tree.%s.cassandra.internals.MaxJavaNoHeap %s %s\\\n",host, $0, now)} (NR == 4) {printf("$tree.%s.cassandra.internals.JavaNoHeapUsed %s %s\\\n",host, $0, now)}'`"
 
-#Number of GarbaceCollections - Numero de GarbageCollections
+#Number of GarbageCollections - Numero de GarbageCollections
 data="$data `curl http://$host:8081/mbean?objectname=java.lang%3Atype%3DGarbageCollector%2Cname%3DConcurrentMarkSweep -s| grep CollectionCount|cut -d">" -f8|cut -d"<" -f1|awk -v now=$now -v host=$host '{printf("$tree.%s.cassandra.internals.GarbageCollections %s %s\\\n",host, $0, now)}'`"
 
 echo $data
