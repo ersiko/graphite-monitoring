@@ -14,7 +14,11 @@ now=`date +%s`
 host=${1:-localhost}
 
 #Number of connections - Numero de connexions
-connections=`netstat -tn|grep ESTABLISHED|awk '{print $4}'|grep 9160|wc -l`
+if [ $host == "localhost" ];then 
+  connections=`netstat -tn|grep ESTABLISHED|awk '{print $4}'|grep 9160|wc -l`
+else 
+  connections=`ssh $host netstat -tn|grep ESTABLISHED|awk '{print $4}'|grep 9160|wc -l`
+fi
 data="$tree.$host.cassandra.connections $connections $now\n" 
 
 #Tasks in ReadStage - Tasques en ReadStage
