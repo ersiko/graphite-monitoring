@@ -16,6 +16,7 @@ host=${1:-localhost}
 #Number of connections - Numero de connexions
 if [ $host == "localhost" ];then 
   connections=`netstat -tn|grep ESTABLISHED|awk '{print $4}'|grep 9160|wc -l`
+  host=`hostname`
 else 
   connections=`ssh $host netstat -tn|grep ESTABLISHED|awk '{print $4}'|grep 9160|wc -l`
 fi
